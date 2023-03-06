@@ -1,0 +1,9 @@
+.close_button {
+    position: absolute;
+    top: 5px;
+    right: 0;
+    min-width: 28px;
+    min-height: 28px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='28' viewBox='0 96 960 960' width='48'%3E%3Cpath d='m249 849-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z'/%3E%3C/svg%3E");
+    background-position: top, left;
+}
