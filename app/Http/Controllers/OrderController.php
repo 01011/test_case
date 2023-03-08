@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreOrderRequest;
-use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Order;
 use App\Models\Product;
 
@@ -32,12 +31,22 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request)
     {
-        $validated = $request->safe()->only('phone', 'email', 'address', 'order_sum');
+        $validated = $request->safe()->only('phone', 'email', 'address', 'coords');
         $selected_products = $request->safe()->only('selected_products');
-        $order = new Order($validated);
+
+        $products_to_save = Order::transformDataToSync($selected_products);
+        
+        $order = new Order($validated);        
+        
+        // Собираем сумму заказа заново, не доверяем пользовательскому вводу
+        $order->order_sum = Order::calculateOverallPrice($products_to_save['selected_products']);
+
         $order->save();
-        $order->products()->sync($selected_products['selected_products']);
-        return var_dump($selected_products);
+
+        $order->products()->sync($products_to_save['selected_products']);
+
+        $request->session()->flash('message', 'Заказ №' . $order->id . ' успешно создан.');
+        return redirect()->route('orders.index');
     }
 
     /**
@@ -45,7 +54,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        return view('order.show', compact('order'));
     }
 
     /**
@@ -53,15 +62,29 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        //
+        $products = Product::get()->keyBy('id');
+        return view('order.form', compact('products', 'order'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateOrderRequest $request, Order $order)
+    public function update(StoreOrderRequest $request, Order $order)
     {
-        //
+        $validated = $request->safe()->only('phone', 'email', 'address', 'coords');
+        $selected_products = $request->safe()->only('selected_products');
+
+        $products_to_save = Order::transformDataToSync($selected_products);
+
+        // Собираем сумму заказа заново, не доверяем пользовательскому вводу
+        $validated['order_sum'] =  Order::calculateOverallPrice($products_to_save['selected_products']);;
+        
+        $order->update($validated);
+
+        $order->products()->sync($products_to_save['selected_products']);
+
+        $request->session()->flash('message', 'Заказ №' . $order->id . ' успешно изменен.');
+        return redirect()->route('orders.index');
     }
 
     /**
@@ -69,6 +92,8 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+        $order_id = $order->id;
+        $order->delete();
+        return redirect()->route('orders.index')->with('message', 'Заказ №' . $order_id . ' успешно удален.');
     }
 }

@@ -1,3 +1,11 @@
+.form-signin {
+    width: 100%;
+    max-width: 430px;
+    padding: 15px;
+    margin: auto;
+}
+
+/* Иконки */
 .close_button {
     position: absolute;
     top: 5px;
@@ -6,4 +14,53 @@
     min-height: 28px;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='28' viewBox='0 96 960 960' width='48'%3E%3Cpath d='m249 849-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z'/%3E%3C/svg%3E");
     background-position: top, left;
+}
+
+.back_arrow {
+    display: inline-block;
+    min-width: 28px;
+    min-height: 28px;
+    background-image: url("data:image/svg+xml,%0A%3Csvg xmlns='http://www.w3.org/2000/svg' height='28' viewBox='0 96 960 960' width='48'%3E%3Cpath d='M780 856V682q0-54-38-92t-92-38H234l154 154-42 42-226-226 226-226 42 42-154 154h416q78 0 134 55.5T840 682v174h-60Z'/%3E%3C/svg%3E");
+    background-position: center, center;
+}
+
+.plus_icon {
+    display: inline-block;
+    color: black;
+    min-width: 28px;
+    min-height: 28px;
+    background-image: url("data:image/svg+xml,%0A%3Csvg xmlns='http://www.w3.org/2000/svg' height='28' viewBox='0 96 960 960' width='48'%3E%3Cpath d='M510 678h60V546h132v-60H570V354h-60v132H378v60h132v132ZM260 856q-24 0-42-18t-18-42V236q0-24 18-42t42-18h560q24 0 42 18t18 42v560q0 24-18 42t-42 18H260Zm0-60h560V236H260v560ZM140 976q-24 0-42-18t-18-42V296h60v620h620v60H140Zm120-740v560-560Z'/%3E%3C/svg%3E");
+    background-position: center, center;
+}
+
+/* Убираем лишнее с карт */
+[class*="copyrights-pane"] {
+    display: none !important;
+}
+
+#map {
+    width: 600px; 
+    height: 400px;
+    margin-bottom: 1rem;
+}
+
+/* Линки */
+a.come_back {
+    text-decoration: none;
+    color: gray;
+    font-size: 16px; 
+}
+
+a.come_back:hover {
+    color: black;
+}
+
+/* Стиль для поля количества */
+input.quantity {
+    display: inline-block; 
+    width: 50px;
+}
+
+input.quantity:focus {
+    outline: steelblue solid 2px;
 }

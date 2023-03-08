@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ URL::asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">
+    @yield('head')
     <title>@yield('title')</title>
 </head>
 <body>
@@ -21,7 +22,7 @@
                 <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
                     <a class="me-3 py-2 text-dark text-decoration-none" href="{{ route('orders.index') }}">Заказы</a>
                     <a class="me-3 py-2 text-dark text-decoration-none" href="{{ route('products.index') }}">Продукты</a>
-                    <a class="me-3 py-2 text-dark text-decoration-none" href="#">Выйти</a>
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="{{ route('log-out') }}">Выйти</a>
                 </nav>
             </div>
         </header>

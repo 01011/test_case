@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('phone', 20)->nullable();
             $table->string('email');
-            $table->string('address')->nullabe();
+            $table->string('address')->nullable();
+            $table->string('coords')->nullable();
             $table->float('order_sum');
             $table->timestamps();
         });

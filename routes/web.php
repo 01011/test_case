@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,11 +16,14 @@ use App\Http\Controllers\OrderController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [AuthController::class, 'index']);
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/user-login', [AuthController::class, 'userLogin'])->name('user-login');
+Route::get('/log-out', [AuthController::class, 'logOut'])->name('log-out');
 
-Route::resources([
-    'products' => ProductController::class,
-    'orders' => OrderController::class,
-]);
+Route::group(['middleware' => 'auth'], function(){
+    Route::resources([
+        'products' => ProductController::class,
+        'orders' => OrderController::class,
+    ]);
+});
