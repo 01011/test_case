@@ -29,6 +29,7 @@ class AuthController extends Controller
         $creds = $request->only('email', 'password');
 
         if(Auth::attempt($creds)){
+            $request->session()->regenerate();
             return redirect()->route('orders.index');
         } else {
             return back()->with('fail', 'Не правильное имя пользователя или пароль.');
